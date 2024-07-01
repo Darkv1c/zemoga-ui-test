@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Test from './client/test.vue';
+</script>
+
 <template>
   <!DOCTYPE html>
   <html lang="en">
@@ -110,7 +114,7 @@
       </aside>
       <main role="main">
         <!-- Start: Implementation -->
-        👉 Your code goes here 👈
+        <Test />
         <!-- End: Implementation -->
       </main>
       <aside class="banner banner-bottom" role="doc-tip" aria-label="Submit a name">

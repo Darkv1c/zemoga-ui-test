@@ -1,7 +1,4 @@
-interface TopicVotes {
-  positive: number;
-  negative: number;
-}
+import type { TopicVotes } from "./dtos/topics.response";
 
 export default class TopicEntity {
   name: string;
