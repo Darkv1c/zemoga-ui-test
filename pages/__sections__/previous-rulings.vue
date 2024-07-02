@@ -11,7 +11,7 @@ const topic = new TopicEntity({
         positive: 70,
         negative: 30
     },
-    picture: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/newscms/2019_30/2943751/190723-plastic-bags-ew-1251p.jpg'
+    picture: 'https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
 })
 </script>
 

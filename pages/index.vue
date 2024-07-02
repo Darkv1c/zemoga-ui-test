@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import PreviousRulings from './__sections__/previous-rulings.vue';
 import CheckButton from '~/components/check-button/check-button.vue';
-const checked = ref(false);
-
 </script>
 
 <template>
@@ -104,7 +102,6 @@ const checked = ref(false);
     <main role="main">
       <!-- Start: Implementation -->
       <PreviousRulings />
-      <CheckButton v-model:checked="checked">Hola</CheckButton>
       <!-- End: Implementation -->
     </main>
     <aside class="banner banner-bottom" role="doc-tip" aria-label="Submit a name">

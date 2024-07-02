@@ -103,23 +103,6 @@ describe("Card", () => {
     validatePercentage({ positive: 121, negative: 67 });
   });
 
-  it("should render the right picture", () => {
-    const wrapper = mount(Card, {
-      props,
-      stubs: ["NuxtImage"],
-    });
-
-    const img = wrapper.find("img");
-    expect(img.attributes("src")).toBe(props.topic.picture);
-  });
-  it("should render a button to vote", async () => {
-    const wrapper = mount(Card, {
-      props,
-    });
-
-    const button = wrapper.find("button");
-    expect(button.text()).toContain("Vote Now");
-  });
   it("should render a button to vote", async () => {
     const wrapper = mount(Card, {
       props,

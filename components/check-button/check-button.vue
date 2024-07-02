@@ -17,7 +17,7 @@ function toggleCheck() {
     </button>
 </template>
 
-<style scoped lang="scss" module="styles">
+<style lang="scss" module="styles">
 .isChecked {
     color: red;
 }

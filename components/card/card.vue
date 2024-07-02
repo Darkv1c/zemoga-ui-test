@@ -16,13 +16,63 @@ const formattedDate = computed(() => {
 </script>
 
 <template>
-  <div>
-    {{ topic.name }} {{ topic.description }} {{ formattedDate }} {{ topic.category }} {{
-      topic.votesPercentage.positive }}% {{ topic.votesPercentage.negative
-    }}%
-    <NuxtImg :src="topic.picture" alt="topic image" />
+  <div :class="`${styles.container}`" :style="{ backgroundImage: `url(${topic.picture})` }">
+    <div :class="`${styles.title}`">{{ topic.name }}</div>
+    <div :class="`${styles.description}`">{{ topic.description }}</div>
+    <div :class="`${styles.time}`">{{ formattedDate }} </div>
     <Button text="Vote Now" />
+    {{
+    topic.votesPercentage.positive }}% {{ topic.votesPercentage.negative
+    }}%
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" module="styles">
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  padding: 36px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+
+  & * {
+    color: #FFFFFF;
+  }
+
+  .title {
+    font-size: 1.875rem;
+    font-weight: 400;
+    line-height: 2.25rem;
+    margin-top: auto;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .description {
+    font-size: 0.938rem;
+    font-weight: 400;
+    line-height: 1.125rem;
+    margin-bottom: 12px;
+  }
+
+  .title,
+  .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .time {
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 0.9rem;
+    margin-bottom: 12px;
+    margin-left: auto;
+  }
+}
+</style>
