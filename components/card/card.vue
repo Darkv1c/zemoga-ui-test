@@ -2,7 +2,6 @@
 import type { CardProps } from './card.types';
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
-import Button from '../button/button.vue';
 import PercentageBar from '../percentage-bar/percentage-bar.vue';
 
 TimeAgo.addDefaultLocale(en)
@@ -24,7 +23,7 @@ const topicImage = `url(${props.topic.picture})`
       <div :class="styles.title">{{ topic.name }}</div>
       <div :class="styles.description">{{ topic.description }}</div>
       <div :class="styles.time">{{ formattedDate }} </div>
-      <Button text="Vote Now" />
+      <CheckButtonCombo />
     </div>
     <PercentageBar :positive="topic.votesPercentage.positive" :negative="topic.votesPercentage.negative" />
   </div>
