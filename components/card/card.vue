@@ -3,6 +3,7 @@ import type { CardProps } from './card.types';
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import Button from '../button/button.vue';
+import PercentageBar from '../percentage-bar/percentage-bar.vue';
 
 TimeAgo.addDefaultLocale(en)
 
@@ -15,8 +16,6 @@ const formattedDate = computed(() => {
 });
 
 const topicImage = `url(${props.topic.picture})`
-const positivePercentage = `${props.topic.votesPercentage.positive}%`
-const negativePercentage = `${props.topic.votesPercentage.negative}%`
 </script>
 
 <template>
@@ -27,18 +26,13 @@ const negativePercentage = `${props.topic.votesPercentage.negative}%`
       <div :class="styles.time">{{ formattedDate }} </div>
       <Button text="Vote Now" />
     </div>
-    <div :class="styles.percentageBar">
-      <span :class="styles.positive">
-        {{ topic.votesPercentage.positive }}%
-      </span>
-      <span :class="styles.negative">
-        {{ topic.votesPercentage.negative }}%
-      </span>
-    </div>
+    <PercentageBar :positive="topic.votesPercentage.positive" :negative="topic.votesPercentage.negative" />
   </div>
 </template>
 
 <style lang="scss" module="styles">
+@import '../../styles/index.scss';
+
 .container {
   display: flex;
   flex-direction: column;
@@ -90,30 +84,6 @@ const negativePercentage = `${props.topic.votesPercentage.negative}%`
       line-height: 0.9rem;
       margin-bottom: 12px;
       margin-left: auto;
-    }
-  }
-
-  .percentageBar {
-    display: flex;
-
-    .positive,
-    .negative {
-      display: flex;
-      box-sizing: border-box;
-      padding: 10px 12px;
-    }
-
-    .positive {
-      background-color: #3CBBB499;
-      ;
-      width: v-bind(positivePercentage);
-    }
-
-    .negative {
-      display: block;
-      text-align: right;
-      background-color: #F9AD1D99;
-      width: v-bind(negativePercentage);
     }
   }
 }

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import './styles/index.scss'
+
 useHead({
   title: 'Rule of Thumb',
   link: [
