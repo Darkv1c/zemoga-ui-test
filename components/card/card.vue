@@ -3,6 +3,7 @@ import type { CardProps } from './card.types';
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import PercentageBar from '../percentage-bar/percentage-bar.vue';
+import { CheckButtonVariant } from '../check-button/check-button.types';
 
 TimeAgo.addDefaultLocale(en)
 
@@ -20,7 +21,13 @@ const topicImage = `url(${props.topic.picture})`
 <template>
   <div :class="styles.container">
     <div :class="styles.infoContainer">
-      <div :class="styles.title">{{ topic.name }}</div>
+      <div :class="styles.title">{{ topic.name }}
+        <CheckButton v-if="true" :class="styles.titleThumb"><img :class="styles.thumb" src="/assets/img/thumbs-up.svg"
+            alt="Positive" />
+        </CheckButton>
+        <CheckButton v-else :variant="CheckButtonVariant.Secondary"><img :class="styles.thumb"
+            src="/assets/img/thumbs-down.svg" alt="Negative" /></CheckButton>
+      </div>
       <div :class="styles.description">{{ topic.description }}</div>
       <div :class="styles.time">{{ formattedDate }} </div>
       <CheckButtonCombo />
@@ -54,12 +61,25 @@ const topicImage = `url(${props.topic.picture})`
     flex: 1;
 
     .title {
+      position: relative;
       font-size: 1.875rem;
       font-weight: 400;
       line-height: 2.25rem;
       margin-top: auto;
       margin-bottom: 8px;
-      overflow: hidden;
+      overflow: visible;
+
+      .titleThumb {
+        position: absolute;
+        bottom: 0;
+        right: 100%;
+
+        img {
+          min-width: 1rem;
+          min-height: 1rem;
+        }
+      }
+
     }
 
     .description {

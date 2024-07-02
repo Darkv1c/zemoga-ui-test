@@ -31,7 +31,7 @@ function toggleCheck() {
     box-sizing: border-box;
     background-color: black;
     border: none;
-    padding: 8px 16px;
+    padding: 7px 10px;
     cursor: pointer;
     background-color: $positive-solid;
 
