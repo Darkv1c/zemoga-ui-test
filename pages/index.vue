@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import PreviousRulings from './__sections__/previous-rulings.vue';
-import CheckButton from '~/components/check-button/check-button.vue';
 </script>
 
 <template>
@@ -56,7 +55,9 @@ import CheckButton from '~/components/check-button/check-button.vue';
             </a>
           </p>
           <p class="featured-card__cta">
-            What’s Your Veredict?
+            What’s Your Veredict
+            -+
+            ?
           </p>
           <div class="featured-card__buttons">
             <button class="icon-button" aria-label="thumbs up">

@@ -1,11 +1,28 @@
 <script setup lang="ts">
 import { CheckButtonVariant } from '../check-button/check-button.types';
+
+const isPositive = ref(false);
+
+const isNegative = ref(false);
+
+watch(isPositive, () => {
+    if (isPositive.value) {
+        isNegative.value = false;
+    }
+});
+watch(isNegative, () => {
+    if (isNegative.value) {
+        isPositive.value = false;
+    }
+});
+
 </script>
 
 <template>
     <div :class="styles.voteContainer">
-        <CheckButton><img :class="styles.thumb" src="/assets/img/thumbs-up.svg" alt="Positive" /></CheckButton>
-        <CheckButton :variant="CheckButtonVariant.Secondary"><img :class="styles.thumb"
+        <CheckButton v-model:checked="isPositive"><img :class="styles.thumb" src="/assets/img/thumbs-up.svg"
+                alt="Positive" /></CheckButton>
+        <CheckButton v-model:checked="isNegative" :variant="CheckButtonVariant.Secondary"><img :class="styles.thumb"
                 src="/assets/img/thumbs-down.svg" alt="Negative" /></CheckButton>
         <Button text="Vote Now" />
     </div>
