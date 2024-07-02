@@ -29,8 +29,10 @@ export default class TopicEntity {
 
   get votesPercentage(): TopicVotes {
     const totalVotes = this.votes.positive + this.votes.negative;
-    const positive = (this.votes.positive / totalVotes) * 100;
-    const negative = 100 - positive;
+    const positive = Number(
+      ((this.votes.positive / totalVotes) * 100).toFixed(2)
+    );
+    const negative = Number((100 - positive).toFixed(2));
 
     return {
       positive,

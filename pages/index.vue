@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import PreviousRulings from './__sections__/previous-rulings.vue';
+import CheckButton from '~/components/check-button/check-button.vue';
+const checked = ref(false);
 
 </script>
 
@@ -25,7 +28,7 @@
           <form action="javascript:void(0)">
             <input class="nav__search-input" aria-label="search" type="text">
             <button class="nav__search icon-button" alt="Search" type="submit">
-              <img src="assets/img/search.svg" alt="search">
+              <img src="/assets/img/search.svg" alt="search">
             </button>
           </form>
         </li>
@@ -34,7 +37,7 @@
   </nav>
   <header class="hero">
     <img class="hero__background" srcset="assets/img/pope-francis.png 750w, assets/img/pope-francis.@2x.png 1440w"
-      sizes="(min-width: 750px) 1440px, 100vw" src="assets/img/pope-francis.png" alt="Pope Francis">
+      sizes="(min-width: 750px) 1440px, 100vw" src="/assets/img/pope-francis.png" alt="Pope Francis">
     <div class="max-centered">
       <div class="hero__featured-card">
         <div class="featured-card__glass-background"></div>
@@ -59,10 +62,10 @@
           </p>
           <div class="featured-card__buttons">
             <button class="icon-button" aria-label="thumbs up">
-              <img src="assets/img/thumbs-up.svg" alt="thumbs up" />
+              <img src="/assets/img/thumbs-up.svg" alt="thumbs up" />
             </button>
             <button class="icon-button" aria-label="thumbs down">
-              <img src="assets/img/thumbs-down.svg" alt="thumbs down" />
+              <img src="/assets/img/thumbs-down.svg" alt="thumbs down" />
             </button>
           </div>
         </div>
@@ -100,12 +103,13 @@
     </aside>
     <main role="main">
       <!-- Start: Implementation -->
-      👉 Your code goes here 👈
+      <PreviousRulings />
+      <CheckButton v-model:checked="checked">Hola</CheckButton>
       <!-- End: Implementation -->
     </main>
     <aside class="banner banner-bottom" role="doc-tip" aria-label="Submit a name">
       <img srcset="assets/img/bg-people.png 750w, assets/img/bg-people.@2x.png 1440w"
-        sizes="(min-width: 750px) 1440px, 100vw" class="banner__background" src="assets/img/bg-people.png" alt=""
+        sizes="(min-width: 750px) 1440px, 100vw" class="banner__background" src="/assets/img/bg-people.png" alt=""
         role="none">
       <div class="banner__left">
         <h2 class="banner__heading">Is there anyone else you would want us to add?</h2>
