@@ -42,13 +42,15 @@ const backgroundImage = computed(() => {
     <div :class="styles.infoContainer">
       <div />
       <div :class="styles.titleAndDescription">
-        <div :class="styles.title">
-          {{ topic.name }}
+        <div :class="styles.titleContainer">
           <CheckButton v-if="mainlyPositive" :class="styles.titleThumb"><img :class="styles.thumb"
               src="/assets/img/thumbs-up.svg" alt="Positive" />
           </CheckButton>
           <CheckButton v-else :class="styles.titleThumb" :variant="CheckButtonVariant.Secondary"><img
               :class="styles.thumb" src="/assets/img/thumbs-down.svg" alt="Negative" /></CheckButton>
+          <div :class="styles.title">
+            {{ topic.name }}
+          </div>
         </div>
         <div :class="styles.description">{{ topic.description }}</div>
       </div>
@@ -63,6 +65,14 @@ const backgroundImage = computed(() => {
 
 <style lang="scss" module="styles">
 @import '../../styles/index.scss';
+
+.maxTwoLines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 .container {
   position: v-bind("list ? 'static' : 'relative'");
@@ -104,40 +114,48 @@ const backgroundImage = computed(() => {
     min-width: 100%;
     flex: 1;
 
-    .title {
-      position: v-bind("list ? 'static' : 'relative'");
-      font-size: 1.875rem;
-      font-weight: 400;
-      line-height: 2.25rem;
-      margin-top: auto;
-      margin-bottom: 8px;
-      overflow: visible;
+    .titleAndDescription {
+      margin-top: v-bind("list ? '' : 'auto'");
 
-      .titleThumb {
-        position: absolute;
-        bottom: v-bind("list ? '' : '0'");
-        top: v-bind("list ? '0' : ''");
-        right: v-bind("list ? '' : '100%'");
-        left: v-bind("list ? '0' : ''");
+      .titleContainer {
+        position: v-bind("list ? 'static' : 'relative'");
+        margin-top: v-bind("list ? '' : 'auto'");
 
-        img {
-          min-width: 1rem;
-          min-height: 1rem;
+        .title {
+          @extend .maxTwoLines;
+          font-size: 1.875rem;
+          font-weight: 400;
+          line-height: 2.25rem;
+          margin-top: auto;
+          margin-bottom: 8px;
+          overflow: visible;
+          overflow-y: hidden;
         }
+
+        .titleThumb {
+          position: absolute;
+          bottom: v-bind("list ? '' : '0'");
+          top: v-bind("list ? '0' : ''");
+          right: v-bind("list ? '' : '100%'");
+          left: v-bind("list ? '0' : ''");
+
+          img {
+            min-width: 1rem;
+            min-height: 1rem;
+          }
+        }
+      }
+
+
+      .description {
+        @extend .maxTwoLines;
+        font-size: 0.938rem;
+        font-weight: 400;
+        line-height: 1.125rem;
+        margin-bottom: 12px;
       }
     }
 
-    .description {
-      font-size: 0.938rem;
-      font-weight: 400;
-      line-height: 1.125rem;
-      margin-bottom: 12px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
 
     .vote {
 

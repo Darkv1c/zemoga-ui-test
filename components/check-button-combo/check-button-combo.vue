@@ -5,6 +5,10 @@ const isPositive = ref(false);
 
 const isNegative = ref(false);
 
+const isButtonDisabled = computed(() => {
+    return !isPositive.value && !isNegative.value;
+});
+
 watch(isPositive, () => {
     if (isPositive.value) {
         isNegative.value = false;
@@ -24,7 +28,7 @@ watch(isNegative, () => {
                 alt="Positive" /></CheckButton>
         <CheckButton v-model:checked="isNegative" :variant="CheckButtonVariant.Secondary"><img :class="styles.thumb"
                 src="/assets/img/thumbs-down.svg" alt="Negative" /></CheckButton>
-        <Button text="Vote Now" />
+        <Button text="Vote Now" :disabled="isButtonDisabled" />
     </div>
 </template>
 

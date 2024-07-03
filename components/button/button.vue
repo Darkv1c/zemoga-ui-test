@@ -5,7 +5,7 @@ defineProps<ButtonProps>()
 </script>
 
 <template>
-    <button :class="styles.container">
+    <button :class="styles.container" :disabled="disabled">
         {{ text }}
     </button>
 </template>
@@ -20,8 +20,12 @@ defineProps<ButtonProps>()
     border: 1px solid $white;
 
     &,
-    &:active {
+    &:active:not([disabled]) {
         background-color: $button;
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
     }
 
     cursor: pointer;
@@ -30,7 +34,7 @@ defineProps<ButtonProps>()
     line-height: 1.125rem;
     text-align: center;
 
-    &:hover:not(:active) {
+    &:hover:not(:active):not([disabled]) {
         background-color: $black;
     }
 }
