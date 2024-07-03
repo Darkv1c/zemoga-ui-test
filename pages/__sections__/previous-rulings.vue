@@ -2,10 +2,9 @@
 import CardList from '~/components/card-list/card-list.vue';
 import Card from '~/components/card/card.vue';
 import type { SelectOption } from '~/components/select/select.types';
-import type TopicEntity from '~/lib/topic/domain/topic.entity';
 import { topicController } from '~/lib/topic/infrastructure/dependencies';
+import { topicStore } from '~/store';
 
-const topics = ref<TopicEntity[]>([]);
 const options: SelectOption<boolean>[] = [
     {
         value: true,
@@ -18,16 +17,26 @@ const options: SelectOption<boolean>[] = [
 ];
 const isListMode = ref<boolean>(options[0].value);
 
-(async function () {
-    const response = await topicController.getAllTopics({
+async function vote(params: { topicId: number, votes: { positive: boolean, negative: boolean } }) {
+    if (params.votes.positive) {
+        await topicController.voteUp(params);
+    } else if (params.votes.negative) {
+        await topicController.voteDown(params);
+    }
+
+    await getTopics();
+}
+
+const getTopics = async () => {
+    await topicStore.getAll({
         params: {
             page: 1,
             pageSize: 6,
         },
     });
-    topics.value = response.elements;
-})()
+}
 
+getTopics()
 </script>
 
 <template>
@@ -36,10 +45,10 @@ const isListMode = ref<boolean>(options[0].value);
         <Select generic="boolean" :options="options" v-model:current-option="isListMode" />
     </span>
     <CardList :list="isListMode">
-        <Card v-for="topic in topics" :topic="topic" :list="isListMode" />
+        <Card v-for="topic in topicStore.topics" :key="JSON.stringify(topic)" @vote="vote" :topic="topic"
+            :list="isListMode" />
     </CardList>
 </template>
-
 
 <style lang="scss" module="styles">
 .sectionHeader {

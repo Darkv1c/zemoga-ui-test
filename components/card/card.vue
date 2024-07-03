@@ -7,18 +7,33 @@ import { CheckButtonVariant } from '../check-button/check-button.types';
 
 TimeAgo.addDefaultLocale(en)
 
+const emit = defineEmits<{
+  vote: [{
+    topicId: number,
+    votes: {
+      positive: boolean;
+      negative: boolean;
+    }
+  }],
+}>()
+
+
 const timeAgo = new TimeAgo('en-US')
 
 const props = defineProps<CardProps>()
 
-const topicImage = `url(${props.topic.picture})`
+const { topic } = toRefs(props)
+
+const voteAgain = ref(topic.value.voted);
+
+const topicImage = `url(${topic.value.picture})`
 
 const mainlyPositive = computed(() => {
-  return props.topic.votesPercentage.positive > 50
+  return topic.value.votesPercentage.positive > 50
 })
 
 const formattedDate = computed(() => {
-  return `${timeAgo.format(props.topic.lastUpdated)} in ${props.topic.category}`
+  return `${timeAgo.format(topic.value.lastUpdated)} in ${topic.value.category}`
 });
 
 const backgroundImage = computed(() => {
@@ -35,6 +50,29 @@ const backgroundImage = computed(() => {
   )`
   return `${gradient}, ${topicImage}`
 })
+
+const buttonText = computed(() => {
+  return voteAgain.value ? 'Vote Again' : 'Vote Now'
+})
+
+const eyeLineText = computed(() => {
+  return voteAgain.value ? 'Than you for your vote' : formattedDate.value
+})
+
+function onClick(_props: {
+  votes: {
+    positive: boolean;
+    negative: boolean;
+  }
+}) {
+  if (voteAgain.value) {
+    voteAgain.value = false
+  } else {
+    emit('vote', { votes: _props.votes, topicId: topic.value.id })
+    voteAgain.value = true
+  }
+}
+
 </script>
 
 <template>
@@ -55,8 +93,8 @@ const backgroundImage = computed(() => {
         <div :class="styles.description">{{ topic.description }}</div>
       </div>
       <div :class="styles.vote">
-        <div :class="styles.time">{{ formattedDate }} </div>
-        <CheckButtonCombo />
+        <div :class="styles.time">{{ eyeLineText }} </div>
+        <CheckButtonCombo @buttonClick="onClick" :buttonText="buttonText" :keepButtonAvailable="voteAgain" />
       </div>
     </div>
     <PercentageBar :positive="topic.votesPercentage.positive" :negative="topic.votesPercentage.negative" />

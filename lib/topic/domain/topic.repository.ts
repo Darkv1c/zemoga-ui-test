@@ -6,4 +6,6 @@ export default interface TopicRepository {
   getAllTopics(props: {
     params: GetAllTopicsRequest;
   }): Promise<ListDTO<TopicEntity>>;
+  voteUp(props: { topicId: TopicEntity["id"] }): Promise<TopicEntity>;
+  voteDown(props: { topicId: TopicEntity["id"] }): Promise<TopicEntity>;
 }

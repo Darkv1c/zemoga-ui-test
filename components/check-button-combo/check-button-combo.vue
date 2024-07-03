@@ -1,13 +1,35 @@
 <script setup lang="ts">
 import { CheckButtonVariant } from '../check-button/check-button.types';
+import type { CheckButtonCombo } from './check-button-combo.types';
+
+const props = defineProps<CheckButtonCombo>()
+
+const emit = defineEmits<{
+    buttonClick: [{
+        votes: {
+            positive: boolean,
+            negative: boolean,
+        },
+    }],
+}>()
 
 const isPositive = ref(false);
 
 const isNegative = ref(false);
 
 const isButtonDisabled = computed(() => {
-    return !isPositive.value && !isNegative.value;
+    return !props.keepButtonAvailable && (!isPositive.value && !isNegative.value);
 });
+
+function onClick() {
+    emit('buttonClick', {
+        votes: {
+            positive: isPositive.value,
+            negative: isNegative.value,
+        },
+    });
+}
+
 
 watch(isPositive, () => {
     if (isPositive.value) {
@@ -19,7 +41,6 @@ watch(isNegative, () => {
         isPositive.value = false;
     }
 });
-
 </script>
 
 <template>
@@ -28,7 +49,7 @@ watch(isNegative, () => {
                 alt="Positive" /></CheckButton>
         <CheckButton v-model:checked="isNegative" :variant="CheckButtonVariant.Secondary"><img :class="styles.thumb"
                 src="/assets/img/thumbs-down.svg" alt="Negative" /></CheckButton>
-        <Button text="Vote Now" :disabled="isButtonDisabled" />
+        <Button @click="onClick" :text="buttonText" :disabled="isButtonDisabled" />
     </div>
 </template>
 

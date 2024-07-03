@@ -13,7 +13,7 @@ export default class ApiRepository implements TopicRepository {
       params as unknown as Record<string, string>
     );
     const response = await fetch(
-      `http://localhost:3000/api/get-all-topics?${queryParams.toString()}`
+      `http://localhost:3000/api/topics?${queryParams.toString()}`
     );
 
     const dto: ListDTO<GetAllTopicsResponse> = await response.json();
@@ -25,5 +25,29 @@ export default class ApiRepository implements TopicRepository {
       ...dto,
       elements: formattedElements,
     };
+  }
+
+  async voteUp(
+    ...[props]: Parameters<TopicRepository["voteUp"]>
+  ): ReturnType<TopicRepository["voteUp"]> {
+    const { topicId } = props;
+    const response = await fetch(`/api/topics/${topicId}/vote/up`, {
+      method: "POST",
+    });
+    const data = await response.json();
+
+    return new TopicEntity({ ...data });
+  }
+
+  async voteDown(
+    ...[props]: Parameters<TopicRepository["voteDown"]>
+  ): ReturnType<TopicRepository["voteDown"]> {
+    const { topicId } = props;
+    const response = await fetch(`/api/topics/${topicId}/vote/down`, {
+      method: "POST",
+    });
+    const data = await response.json();
+
+    return new TopicEntity({ ...data });
   }
 }
