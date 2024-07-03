@@ -42,7 +42,7 @@ getTopics()
 <template>
     <span :class="styles.sectionHeader">
         <span :class="styles.sectionTitle">Previous Rulings</span>
-        <Select generic="boolean" :options="options" v-model:current-option="isListMode" />
+        <Select :class="styles.select" generic="boolean" :options="options" v-model:current-option="isListMode" />
     </span>
     <CardList :list="isListMode">
         <Card v-for="topic in topicStore.topics" :key="JSON.stringify(topic)" @vote="vote" :topic="topic"
@@ -61,6 +61,12 @@ getTopics()
         font-weight: 300;
         line-height: 1.8rem;
         text-align: left;
+    }
+}
+
+@media all and (max-width: 768px) {
+    .select {
+        display: none;
     }
 }
 </style>

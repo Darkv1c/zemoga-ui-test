@@ -117,8 +117,10 @@ function onClick(_props: {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex: 1;
   min-width: v-bind("list ? '100%' : '300px'");
   min-height: v-bind("list ? '140px' : '300px'");
+  max-width: v-bind("list ? '100%' : '366px'");
   overflow: hidden;
   z-index: 2;
 
@@ -206,6 +208,47 @@ function onClick(_props: {
       }
     }
 
+  }
+}
+
+@media all and (max-width: 768px) {
+  .container {
+    position: relative;
+    min-width: 300px;
+    min-height: 300px;
+    max-width: 366px;
+
+    &::before {
+      transform: none;
+      transform-origin: left;
+      background-size: cover;
+      background-image: v-bind(topicImage);
+    }
+
+    .infoContainer {
+      display: flex;
+
+      .titleAndDescription {
+        margin-top: auto;
+
+        .titleContainer {
+          position: relative;
+          margin-top: auto;
+
+          .titleThumb {
+            bottom: 0;
+            top: unset;
+            right: 100%;
+            left: unset;
+
+            img {
+              min-width: 1rem;
+              min-height: 1rem;
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>

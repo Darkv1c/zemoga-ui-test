@@ -14,9 +14,17 @@ defineProps<CardListProps>()
 .container {
     display: flex;
     flex-direction: v-bind("list ? 'column' : 'row'");
+    flex-wrap: wrap;
     gap: 12px;
     padding: 24px 16px 0;
     max-width: 100%;
     overflow-x: auto;
+}
+
+@media all and (max-width: 768px) {
+    .container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
 }
 </style>
